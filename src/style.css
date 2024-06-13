@@ -1,0 +1,447 @@
+/* General Styles */
+body, html, #app {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.hero {
+  background-image: url('./assets/foto/wallpaper.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  max-height: 30vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.router-view-container {
+  padding-top: 2rem;
+}
+
+/* LOGO */
+.logo-container {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-container:visited {
+  color: inherit;
+}
+
+/* HEADER DROPDOWN */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none; 
+}
+
+/* dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 8px;
+}
+
+.dropdown-content a,
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover,
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+
+/* dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  max-height: 8vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+header .logo-container img {
+  height: 40px;
+}
+
+header .right-nav {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-container:visited {
+  color: inherit;
+}
+
+/*MODAL LOGIN/SIGNUP*/
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+}
+
+.modal-content input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.modal-content button {
+  background-color: #FF385C;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  font-size: 0.9rem;
+}
+
+.modal-content button:last-child {
+  margin-bottom: 0;
+}
+
+.modal-content button:hover {
+  background-color: #e32f51;
+}
+
+/* NEW USER CREATION */
+.create-user-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="tel"],
+.modal-content input[type="password"] {
+  width: calc(100% - 1.5rem);
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.radio-label {
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 2rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  z-index: 10;
+}
+
+/* GRID */
+.campsite-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* center the cards in container */
+  gap: 16px; /* space between the cards */
+}
+
+.campsite-card {
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+  width: calc(33.333% - 20px); /* card takes up one-third of the row */
+  box-sizing: border-box;
+  flex: 1 1 calc(33.333% - 20px); /* card - flex and wrap in grid */
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.campsite-card:hover {
+  border-color: #007bff; 
+}
+
+.campsite-card:visited {
+  color: inherit; /* Ensure the color remains the same after visiting */
+  border-color: #ccc; /* Ensure the border color remains the same after visiting */
+}
+
+/* CAMPSITE DETAIL */
+.campsite-detail {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.detail-image {
+  width: 100%;
+  height: auto;
+}
+
+.booking-section {
+  margin-top: 20px;
+}
+
+button[disabled] {
+  margin: 1px;
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+
+.modal-content a {
+  color: #FF385C;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0.5rem;
+  gap: 0.25rem;
+}
+
+.search-input label {
+  font-size: 0.8rem;
+  color: #717171;
+}
+
+.search-input input,
+.search-input select {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem;
+  outline: none;
+  font-size: 1rem;
+  background-color: transparent;
+}
+
+.search-button {
+  background-color: #FF385C;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background-color: #e32f51;
+}
+
+.material-symbols-outlined {
+  font-size: 1rem;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+#app {
+  font-family: sans-serif;
+}
+
+.hero {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 50px;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
