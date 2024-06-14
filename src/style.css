@@ -378,6 +378,10 @@ footer {
   background-color: #e32f51;
 }
 
+.search-button:focus {
+  outline: none; /* Ensure no outline on focus */
+}
+
 .material-symbols-outlined {
   font-size: 1rem;
 }

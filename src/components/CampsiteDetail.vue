@@ -4,7 +4,7 @@
     <h1>{{ campsite.name }}</h1>
     <p>{{ campsite.location }}</p>
     <p>{{ campsite.description }}</p>
-    <p>Price per night: {{ campsite.pricePerNight }} Euro</p>
+    <p>Price per night: {{ campsite.pricePerNight }} €</p>
 
     <div v-if="campsite.amenities" class="amenities">
       <h3>Amenities:</h3>
@@ -27,7 +27,7 @@
 <script>
 import { useRoute } from 'vue-router';
 import axios from 'axios';
-import DatePicker from '@vuepic/vue-datepicker'; // Changed to 'DatePicker' to avoid conflict
+import DatePicker from '@vuepic/vue-datepicker'; 
 import '@vuepic/vue-datepicker/dist/main.css';
 import BookingForm from './BookingForm.vue';
 

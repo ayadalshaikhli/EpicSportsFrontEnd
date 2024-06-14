@@ -97,7 +97,6 @@ const cancelBooking = async (bookingId) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    // Remove the canceled booking from the bookings list
     bookings.value = bookings.value.filter(booking => booking.id !== bookingId);
   } catch (err) {
     console.error('Error canceling booking:', err);
@@ -107,7 +106,6 @@ const cancelBooking = async (bookingId) => {
 
 const updateUserInfo = async () => {
   try {
-    // Validate phone number
     if (user.value.phoneNumber < 100000000 || user.value.phoneNumber > 999999999) {
       phoneNumberError.value = true;
       return;
@@ -123,6 +121,7 @@ const updateUserInfo = async () => {
       },
     });
     alert('User information updated successfully');
+    window.location.reload();
     await fetchUserData();
   } catch (err) {
     console.error('Error updating user info:', err);
@@ -150,6 +149,7 @@ const updatePassword = async () => {
     });
 
     alert('Password updated successfully');
+    window.location.reload();
     await fetchUserData();
   } catch (err) {
     console.error('Error updating password:', err);
@@ -190,13 +190,11 @@ const formatDate = (dateString) => {
 
 const togglePasswordFields = () => {
   showPasswordFields.value = !showPasswordFields.value;
-  // Reset password fields when toggling visibility
   currentPassword.value = '';
   newPassword.value = '';
 };
 
 const checkChanges = () => {
-  // Check if any changes were made to user details fields
   changesMade.value = (
     user.value.username !== user.username ||
     user.value.email !== user.email ||
@@ -206,10 +204,8 @@ const checkChanges = () => {
   );
 };
 
-// Fetch user data when the component is mounted
 fetchUserData();
 
-// Watch for changes in phoneNumber and ensure it is a string
 watch(() => user.value?.phoneNumber, (newVal) => {
   if (newVal !== undefined) {
     user.value.phoneNumber = String(newVal);
