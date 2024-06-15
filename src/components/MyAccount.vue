@@ -33,6 +33,7 @@
             <p><strong>Camping:</strong> {{ booking.campsite.name }}</p>
             <p><strong>Location:</strong> {{ booking.campsite.location }}</p>
             <p><strong>Date:</strong> {{ formatDate(booking.startDate) }} - {{ formatDate(booking.endDate) }}</p>
+            <p><strong>Guests:</strong> {{ booking.numberOfGuests }}</p>
           </div>
           <button @click="cancelBooking(booking.id)" class="cancel-button">Cancel Booking</button>
         </li>
@@ -161,25 +162,6 @@ const updatePassword = async () => {
   }
 };
 
-const deleteAccount = async () => {
-  try {
-    const token = sessionStorage.getItem('token');
-    await axios.delete(`https://localhost:7063/api/User/${user.value.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    alert('Account deleted successfully');
-    
-    // Perform logout or redirect to login page
-    sessionStorage.clear();
-    window.location.href = '/login';
-  } catch (err) {
-    console.error('Error deleting account:', err);
-    error.value = 'Failed to delete account. Please try again later.';
-  }
-};
-
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -195,22 +177,17 @@ const togglePasswordFields = () => {
 };
 
 const checkChanges = () => {
+  const originalUser = JSON.parse(sessionStorage.getItem('user'));
   changesMade.value = (
-    user.value.username !== user.username ||
-    user.value.email !== user.email ||
-    user.value.firstName !== user.firstName ||
-    user.value.lastName !== user.lastName ||
-    user.value.phoneNumber !== user.phoneNumber
+    user.value.username !== originalUser.username ||
+    user.value.email !== originalUser.email ||
+    user.value.firstName !== originalUser.firstName ||
+    user.value.lastName !== originalUser.lastName ||
+    user.value.phoneNumber !== originalUser.phoneNumber
   );
 };
 
 fetchUserData();
-
-watch(() => user.value?.phoneNumber, (newVal) => {
-  if (newVal !== undefined) {
-    user.value.phoneNumber = String(newVal);
-  }
-});
 
 </script>
 

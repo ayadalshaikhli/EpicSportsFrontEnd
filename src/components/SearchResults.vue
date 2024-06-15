@@ -17,7 +17,7 @@ const fetchAllCampsites = async () => {
   try {
     const response = await axios.get('https://localhost:7063/api/Campsite');
     campsites.value = response.data;
-    console.log("Fetched all campsites:", campsites.value);  // Debugging line
+    console.log("Fetched all campsites:", campsites.value);  
   } catch (err) {
     console.error('Error fetching all campsites:', err);
     handleError(err);
@@ -26,9 +26,9 @@ const fetchAllCampsites = async () => {
 
 const searchCampsites = async (searchParams) => {
   try {
-    console.log("Searching campsites with params:", searchParams);  // Debugging line
+    console.log("Searching campsites with params:", searchParams);
     const response = await axios.get('https://localhost:7063/api/Campsite/search', { params: searchParams });
-    console.log("Response from API:", response.data);  // Log API response
+    console.log("Response from API:", response.data); 
     campsites.value = response.data;
     console.log("Search results:", campsites.value);
     

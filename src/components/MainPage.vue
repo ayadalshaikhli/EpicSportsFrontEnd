@@ -16,7 +16,6 @@ const handleSearch = (params) => {
   initialLoad.value = false;
 };
 
-// Fetch all campsites on initial load
 onMounted(() => {
   searchParams.value = {};
 });

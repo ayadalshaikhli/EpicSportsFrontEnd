@@ -5,6 +5,7 @@ body, html, #app {
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  font-family: sans-serif;
 }
 
 body {
@@ -30,6 +31,14 @@ body {
   justify-content: center;
   text-align: center;
   color: white;
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 50px;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
 }
 
 .router-view-container {
@@ -41,10 +50,17 @@ body {
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo-container:visited {
   color: inherit;
+}
+
+.logo-container img {
+  height: 40px;
 }
 
 /* HEADER DROPDOWN */
@@ -86,7 +102,6 @@ body {
   cursor: pointer;
 }
 
-/* Change color of dropdown links on hover */
 .dropdown-content a:hover,
 .dropdown-content button:hover {
   background-color: #f1f1f1;
@@ -110,29 +125,9 @@ header {
   z-index: 10;
 }
 
-header .logo-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-header .logo-container img {
-  height: 40px;
-}
-
 header .right-nav {
   display: flex;
   align-items: center;
-}
-
-.logo-container {
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-}
-
-.logo-container:visited {
-  color: inherit;
 }
 
 /*MODAL LOGIN/SIGNUP*/
@@ -273,8 +268,8 @@ header .right-nav {
 }
 
 .campsite-card:visited {
-  color: inherit; /* Ensure the color remains the same after visiting */
-  border-color: #ccc; /* Ensure the border color remains the same after visiting */
+  color: inherit; 
+  border-color: #ccc; 
 }
 
 /* CAMPSITE DETAIL */
@@ -297,7 +292,6 @@ button[disabled] {
   background-color: grey;
   cursor: not-allowed;
 }
-
 
 .modal-content a {
   color: #FF385C;
@@ -379,7 +373,7 @@ footer {
 }
 
 .search-button:focus {
-  outline: none; /* Ensure no outline on focus */
+  outline: none; 
 }
 
 .material-symbols-outlined {
@@ -422,19 +416,8 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-#app {
-  font-family: sans-serif;
-}
-
-.hero {
-  background-color: #f0f0f0;
-  text-align: center;
-  padding: 50px;
-}
-
-.hero h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+.error {
+  color: red;
 }
 
 @media (prefers-color-scheme: light) {

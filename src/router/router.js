@@ -5,7 +5,7 @@ import CampsiteDetail from '../components/CampsiteDetail.vue';
 import MyAccount from '../components/MyAccount.vue';
 import SearchResults from '../components/SearchResults.vue';
 import OwnerDashboard from '../components/OwnerDashboard.vue';
-import OwnerMain from '../components/OwnerMainPage.vue';
+import OwnerAccount from '../components/OwnerAccount.vue';
 
 const routes = [
   { path: '/', name: 'main', component: MainPage },
@@ -13,7 +13,8 @@ const routes = [
   { path: '/campsite/:id', name: 'CampsiteDetail', component: CampsiteDetail },
   { path: '/my-account', name: 'my-account', component: MyAccount },
   { path: '/search-results', name: 'SearchResults', component: SearchResults },
-  { path: '/owner', name: 'owner-main', component: OwnerDashboard }
+  { path: '/owner', name: 'owner-main', component: OwnerDashboard },
+  { path: '/owner-account', name: 'owner-account', component: OwnerAccount }
 ];
 
 const router = createRouter({

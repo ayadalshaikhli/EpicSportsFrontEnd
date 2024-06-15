@@ -64,7 +64,7 @@
           const user = JSON.parse(sessionStorage.getItem('user'));
   
           if (!user) {
-            this.bookingError = 'User not logged in.';
+            this.bookingError = 'You must be logged in.';
             return;
           }
   
@@ -111,11 +111,3 @@
     }
   };
   </script>
-  
-  <style>
-  .error-message {
-    color: red;
-    margin-top: 10px;
-  }
-  </style>
-  

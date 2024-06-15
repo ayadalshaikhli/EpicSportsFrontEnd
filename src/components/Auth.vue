@@ -8,15 +8,6 @@
           <input type="text" v-model="userName" placeholder="Username" required>
           <input type="password" v-model="passwordhash" placeholder="Password" required>
           <button type="submit">Login</button>
-          <button type="button" @click="mode = 'resetPassword'">Forgot Password?</button>
-          <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-        </form>
-      </div>
-      <div v-else-if="mode === 'resetPassword'">
-        <h3>Reset Password</h3>
-        <form @submit.prevent="resetPassword">
-          <input type="email" v-model="email" placeholder="Email" required>
-          <button type="submit">Send Reset Link</button>
           <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
         </form>
       </div>
@@ -77,7 +68,7 @@ export default {
     },
     closeModal() {
       this.isOpen = false;
-      this.errorMessage = ''; // Clear any existing error messages
+      this.errorMessage = ''; 
     },
     async login() {
       if (!this.userName || !this.passwordhash) {
@@ -100,14 +91,11 @@ export default {
         this.$emit('login', this.user);
         this.closeModal();
 
-        // Debugging role ID
-        console.log('User role ID:', user.roleId);
-        
-        // Redirect based on role
+        // redirect based on role
         if (user.roleId === 1) {
-          router.push('/owner'); // Redirect to owner dashboard
+          router.push('/owner'); // owner dashboard
         } else if (user.roleId === 2) {
-          router.push('/'); // Redirect to main page for campers
+          router.push('/'); // client main page 
         }
       } catch (error) {
         console.error('Login failed', error);
@@ -137,11 +125,8 @@ export default {
         this.errorMessage = 'Error creating account. Please try again.';
       }
     },
-    resetPassword() {
-      console.log('Reset password for:', this.email);
-    },
     logout() {
-      sessionStorage.clear(); // Clear session storage
+      sessionStorage.clear(); // clear session storage
       this.isAuthenticated = false;
       this.user = null;
       this.$emit('logout');
@@ -149,46 +134,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
-
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 300px;
-  border-radius: 10px;
-}
-
-.close-button {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close-button:hover,
-.close-button:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>

@@ -20,7 +20,7 @@
       </label>
       <label class="form-label">
         Image:
-        <input type="file" @change="handleFileUpload" class="form-input"/>
+        <input type="file" @change="handleFileUpload" accept="image/jpeg, image/jpg, image/png" class="form-input"/>
       </label>
       <label class="form-label">
         Amenities:
@@ -68,7 +68,7 @@ const initialCampsiteState = {
   location: '',
   pricePerNight: 0,
   imageBase64: '',
-  amenities: [], // List of amenity IDs
+  amenities: [], 
 };
 
 const user = ref(null);
@@ -111,6 +111,12 @@ const selectedAmenities = ref([]);
 
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
+  const validFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+  if (!validFileTypes.includes(file.type)) {
+    alert('Only JPEG, JPG, and PNG files are allowed.');
+    return;
+  }
 
   new Compressor(file, {
     quality: 0.6, 
@@ -172,6 +178,23 @@ const fetchCampsites = async (userId) => {
   } catch (err) {
     console.error('Error fetching campsites:', err);
     error.value = 'Failed to fetch campsites. Please try again later.';
+  }
+};
+
+const deleteCampsite = async (campId) => {
+  if (confirm('Are you sure you want to delete this campsite?')) {
+    try {
+      const token = sessionStorage.getItem('token');
+      await axios.delete(`https://localhost:7063/api/Campsite/${campId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      await fetchCampsites(user.value.id); 
+    } catch (err) {
+      console.error('Error deleting campsite:', err);
+      alert('Failed to delete campsite. Please try again later.');
+    }
   }
 };
 

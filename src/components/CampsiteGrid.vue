@@ -20,19 +20,3 @@ const props = defineProps({
 
 console.log("Campsites in CampsiteGrid:", props.campsites);  // Debugging line
 </script>
-
-<style scoped>
-.campsite-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.error {
-  color: red;
-  margin-top: 20px;
-}
-</style>
