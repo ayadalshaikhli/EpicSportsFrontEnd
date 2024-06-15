@@ -122,7 +122,7 @@ const updateUserInfo = async () => {
       },
     });
     alert('User information updated successfully');
-    window.location.reload();
+    window.location.reload(); 
     await fetchUserData();
   } catch (err) {
     console.error('Error updating user info:', err);

@@ -129,7 +129,18 @@ export default {
       sessionStorage.clear(); // clear session storage
       this.isAuthenticated = false;
       this.user = null;
+      this.clearFormFields();
       this.$emit('logout');
+      window.reload(); 
+    },
+    clearFormFields() {
+      this.email = '';
+      this.passwordhash = '';
+      this.firstName = '';
+      this.lastName = '';
+      this.userName = '';
+      this.phoneNumber = '';
+      this.roleid = '';
     }
   }
 };

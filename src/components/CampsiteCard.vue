@@ -4,7 +4,6 @@
     <h3>{{ campsite.name }}</h3>
     <p>{{ campsite.location }}</p>
     <p>Price per night: {{ campsite.pricePerNight }} €</p>
-    <p>Rating: {{ campsite.averageRating }} ★</p>
   </router-link>
 </template>
 
