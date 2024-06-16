@@ -255,7 +255,9 @@ const deleteCampsite = async (campId) => {
 
 fetchUserData();
 onMounted(() => {
-  fetchCampsites(user.value.id);
+  if (user.value) {
+    fetchCampsites(user.value.id);
+  }
 });
 </script>
 
@@ -376,5 +378,11 @@ h2 {
 
 .delete-button:hover {
   background-color: darkred;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }
 </style>

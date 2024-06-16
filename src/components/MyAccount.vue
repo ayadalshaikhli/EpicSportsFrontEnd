@@ -2,10 +2,22 @@
   <div>
     <div class="account-detail" v-if="user">
       <h1>My Account Information</h1>
-      <label><strong>Username:</strong> <input v-model="user.username" @input="checkChanges" class="input-field" /></label>
-      <label><strong>Email:</strong> <input v-model="user.email" @input="checkChanges" class="input-field" /></label>
-      <label><strong>First Name:</strong> <input v-model="user.firstName" @input="checkChanges" class="input-field" /></label>
-      <label><strong>Last Name:</strong> <input v-model="user.lastName" @input="checkChanges" class="input-field" /></label>
+      <label>
+        <strong>Username:</strong>
+        <input v-model="user.username" @input="checkChanges" class="input-field"/>
+      </label>
+      <label>
+        <strong>Email:</strong>
+        <input v-model="user.email" @input="checkChanges" class="input-field"/>
+      </label>
+      <label>
+        <strong>First Name:</strong>
+        <input v-model="user.firstName" @input="checkChanges" class="input-field"/>
+      </label>
+      <label>
+        <strong>Last Name:</strong>
+        <input v-model="user.lastName" @input="checkChanges" class="input-field"/>
+      </label>
       <label>
         <strong>Phone Number:</strong>
         <input v-model.number="user.phoneNumber" @input="checkChanges" class="input-field" type="tel" required/>
@@ -14,9 +26,15 @@
       <button :disabled="!changesMade" @click="updateUserInfo" class="update-button">Update Info</button>
       <button @click="togglePasswordFields" class="change-password-button">Change Password</button>
       <div v-if="showPasswordFields" class="password-fields">
-        <label><strong>Current Password:</strong> <input v-model="currentPassword" type="password" class="input-field" /></label>
+        <label>
+          <strong>Current Password:</strong>
+          <input v-model="currentPassword" type="password" class="input-field"/>
+        </label>
         <span v-if="currentPasswordError" class="error-message">{{ currentPasswordError }}</span>
-        <label><strong>New Password:</strong> <input v-model="newPassword" type="password" class="input-field" /></label>
+        <label>
+          <strong>New Password:</strong>
+          <input v-model="newPassword" type="password" class="input-field"/>
+        </label>
         <button @click="updatePassword" class="update-password-button">Update Password</button>
       </div>
       <!--<button @click="deleteAccount" class="delete-button">Delete Account</button>-->
@@ -32,7 +50,9 @@
           <div class="booking-details">
             <p><strong>Camping:</strong> {{ booking.campsite.name }}</p>
             <p><strong>Location:</strong> {{ booking.campsite.location }}</p>
-            <p><strong>Date:</strong> {{ formatDate(booking.startDate) }} - {{ formatDate(booking.endDate) }}</p>
+            <p>
+              <strong>Date:</strong> {{ formatDate(booking.startDate) }} - {{ formatDate(booking.endDate) }}
+            </p>
             <p><strong>Guests:</strong> {{ booking.numberOfGuests }}</p>
           </div>
           <button @click="cancelBooking(booking.id)" class="cancel-button">Cancel Booking</button>
@@ -47,37 +67,40 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import axios from 'axios';
+import { ref, watch } from "vue";
+import axios from "axios";
 
 const user = ref(null);
 const bookings = ref([]);
 const error = ref(null);
 const phoneNumberError = ref(false);
 const currentPasswordError = ref(false);
-const currentPassword = ref('');
-const newPassword = ref('');
+const currentPassword = ref("");
+const newPassword = ref("");
 const changesMade = ref(false);
 const showPasswordFields = ref(false);
 
 const fetchUserData = async () => {
   try {
-    const userData = sessionStorage.getItem('user');
-    if (userData) {
-      user.value = JSON.parse(userData);
-      await fetchUserBookings(user.value.id);
-    } else {
-      error.value = 'User data not found. Please log in again.';
-    }
+    const token = sessionStorage.getItem("token");
+    const response = await axios.get("https://localhost:7063/api/User/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    user.value = response.data;
+    sessionStorage.setItem("user", JSON.stringify(response.data));
+    await fetchUserBookings(user.value.id);
   } catch (err) {
-    console.error('Error fetching data:', err);
-    error.value = 'Failed to fetch user data. Please try again later.';
+    console.error("Error fetching data:", err);
+    error.value = "Failed to fetch user data. Please try again later.";
   }
 };
 
 const fetchUserBookings = async (userId) => {
   try {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     const response = await axios.get(`https://localhost:7063/api/User/${userId}/bookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -85,23 +108,23 @@ const fetchUserBookings = async (userId) => {
     });
     bookings.value = response.data;
   } catch (err) {
-    console.error('Error fetching bookings:', err);
-    error.value = 'Failed to fetch bookings. Please try again later.';
+    console.error("Error fetching bookings:", err);
+    error.value = "Failed to fetch bookings. Please try again later.";
   }
 };
 
 const cancelBooking = async (bookingId) => {
   try {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     await axios.delete(`https://localhost:7063/api/Booking/${bookingId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    bookings.value = bookings.value.filter(booking => booking.id !== bookingId);
+    bookings.value = bookings.value.filter((booking) => booking.id !== bookingId);
   } catch (err) {
-    console.error('Error canceling booking:', err);
-    error.value = 'Failed to cancel booking. Please try again later.';
+    console.error("Error canceling booking:", err);
+    error.value = "Failed to cancel booking. Please try again later.";
   }
 };
 
@@ -113,31 +136,34 @@ const updateUserInfo = async () => {
     }
     phoneNumberError.value = false;
 
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     const updatedUser = { ...user.value };
 
-    await axios.put(`https://localhost:7063/api/User/${user.value.id}`, updatedUser, {
+    const response = await axios.put(`https://localhost:7063/api/User/${user.value.id}`, updatedUser, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    alert('User information updated successfully');
-    window.location.reload(); 
+
+    // Update session storage with new user data
+    sessionStorage.setItem("user", JSON.stringify(response.data));
+
+    alert("User information updated successfully");
     await fetchUserData();
   } catch (err) {
-    console.error('Error updating user info:', err);
-    error.value = 'Failed to update user info. Please try again later.';
+    console.error("Error updating user info:", err);
+    error.value = "Failed to update user info. Please try again later.";
   }
 };
 
 const updatePassword = async () => {
   try {
     if (!currentPassword.value || !newPassword.value) {
-      currentPasswordError.value = 'Current and new passwords are required.';
+      currentPasswordError.value = "Current and new passwords are required.";
       return;
     }
 
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     const passwordData = {
       currentPassword: currentPassword.value,
       newPassword: newPassword.value,
@@ -149,15 +175,15 @@ const updatePassword = async () => {
       },
     });
 
-    alert('Password updated successfully');
+    alert("Password updated successfully");
     window.location.reload();
     await fetchUserData();
   } catch (err) {
-    console.error('Error updating password:', err);
+    console.error("Error updating password:", err);
     if (err.response.data.errors && err.response.data.errors.CurrentPassword) {
       currentPasswordError.value = err.response.data.errors.CurrentPassword[0];
     } else {
-      currentPasswordError.value = 'Failed to update password. Please try again later.';
+      currentPasswordError.value = "Failed to update password. Please try again later.";
     }
   }
 };
@@ -165,30 +191,28 @@ const updatePassword = async () => {
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
 
 const togglePasswordFields = () => {
   showPasswordFields.value = !showPasswordFields.value;
-  currentPassword.value = '';
-  newPassword.value = '';
+  currentPassword.value = "";
+  newPassword.value = "";
 };
 
 const checkChanges = () => {
-  const originalUser = JSON.parse(sessionStorage.getItem('user'));
-  changesMade.value = (
+  const originalUser = JSON.parse(sessionStorage.getItem("user"));
+  changesMade.value =
     user.value.username !== originalUser.username ||
     user.value.email !== originalUser.email ||
     user.value.firstName !== originalUser.firstName ||
     user.value.lastName !== originalUser.lastName ||
-    user.value.phoneNumber !== originalUser.phoneNumber
-  );
+    user.value.phoneNumber !== originalUser.phoneNumber;
 };
 
 fetchUserData();
-
 </script>
 
 <style scoped>
@@ -248,8 +272,8 @@ fetchUserData();
   color: white;
   border: none;
   cursor: pointer;
-  margin-bottom: 10px; /* Adjusted to move button above Change Password */
-  margin-right: 10px; 
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .update-button:hover {
